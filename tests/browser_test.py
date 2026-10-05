@@ -74,7 +74,7 @@ with sync_playwright() as p:
     data=[{'label':f'Test App {i:03}','packageName':f'test.app{i}'} for i in range(130)]
     page=browser.new_page(viewport={'width':475,'height':750},has_touch=True)
     page.on('pageerror',lambda e:errors.append(str(e)))
-    page.add_init_script('''window.__calls=[];window.__failLaunch=false;localStorage.setItem('fold-button-wall',JSON.stringify({motion:true,shimmer:true}));
+    page.add_init_script('''window.__calls=[];window.__failLaunch=false;
       window.Bridge=new Proxy({}, {get:(_,name)=>{
       if(name==='getAppsURL')return ()=>location.origin+'/apps';
       if(name==='getSystemBarsWindowInsets'||name==='getDisplayCutoutWindowInsets')return ()=>JSON.stringify({top:42,bottom:26,left:0,right:0});
@@ -82,6 +82,23 @@ with sync_playwright() as p:
       return (...args)=>{window.__calls.push({name,args});return !window.__failLaunch};}});''')
     page.route('**/apps',lambda route:route.fulfill(json={'apps':data}))
     page.goto(url);page.wait_for_selector('.track')
+    # Fresh Bridge installs must flow before any touch, accelerate, then settle.
+    def sample_x():
+        return page.locator('.track').first.evaluate('(e)=>new DOMMatrixReadOnly(getComputedStyle(e).transform).m41')
+    x0=sample_x();page.wait_for_timeout(800);x1=sample_x()
+    slow=abs(x1-x0)/.8
+    assert 7<slow<17,slow
+    first=page.locator('.lane').nth(1).bounding_box();fy=first['y']+first['height']/2
+    page.mouse.move(100,fy);page.mouse.down()
+    for xx in range(120,321,20):
+        page.mouse.move(xx,fy);page.wait_for_timeout(20)
+    page.mouse.up()
+    x0=sample_x();page.wait_for_timeout(150);boost=abs(sample_x()-x0)/.15
+    assert boost>slow*3,(slow,boost)
+    page.wait_for_timeout(2300)
+    x0=sample_x();page.wait_for_timeout(800);settled=abs(sample_x()-x0)/.8
+    assert 7<settled<17,settled
+    results['bridge_default_slow_flow_manual_boost_return_to_slow']='passed'
     row=page.locator('.lane').nth(3).bounding_box();y=row['y']+row['height']/2
     page.mouse.move(360,y);page.mouse.down();page.mouse.move(80,y,steps=12);page.mouse.up()
     assert not page.evaluate('__calls.some(c=>c.name==="requestLaunchApp")')

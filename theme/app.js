@@ -10,7 +10,7 @@ let apps = [],
     size: 12,
     dark: false,
     paint: false,
-    motion: false,
+    motion: true,
     shimmer: false,
     speed: 12,
     colors: {},
@@ -31,7 +31,7 @@ opts.favorites = Array.isArray(opts.favorites)
 if (isPreview && !localStorage.getItem("fold-button-wall")) {
   opts.favorites = demoApps.slice(0, 10).map((a) => a.packageName);
   opts.motion = true;
-  opts.shimmer = true;
+  opts.shimmer = false;
 }
 function save() {
   try {
