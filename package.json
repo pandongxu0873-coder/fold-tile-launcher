@@ -1,0 +1,13 @@
+{
+  "name": "fold-tile-launcher",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Flowing rectangular app tiles for Bridge Launcher",
+  "scripts": {
+    "test": "node --test tests/layout.test.js",
+    "preview": "python3 -m http.server 8080 --directory theme",
+    "format": "npx prettier@3.6.2 --write theme tests/layout.test.js package.json"
+  },
+  "license": "MIT"
+}

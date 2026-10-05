@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <title>Fold Tile</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main id="wall" aria-label="应用列表"></main>
+    <p id="error" hidden></p>
+    <dialog id="search">
+      <h2>搜索应用</h2>
+      <input
+        id="needle"
+        type="search"
+        placeholder="输入应用名称"
+        autocomplete="off"
+      /><button id="searchDone">完成</button
+      ><button id="clearSearch">显示全部</button>
+    </dialog>
+    <dialog id="settings">
+      <h2>方框桌面</h2>
+      <label
+        >字号 / 方框密度<select id="density">
+          <option value="10">密集 · 10</option>
+          <option value="12">标准 · 12</option>
+          <option value="15">易读 · 15</option>
+        </select></label
+      ><label><input type="checkbox" id="dark" /> 深色背景</label
+      ><label><input type="checkbox" id="motion" /> 自动左右流动</label
+      ><label><input type="checkbox" id="shimmer" /> 自动变色</label
+      ><label
+        >流动速度<select id="speed">
+          <option value="5">慢</option>
+          <option value="12">标准</option>
+          <option value="24">快</option>
+        </select></label
+      ><label
+        ><input type="checkbox" id="paint" />
+        涂色模式（只变色，不打开应用）</label
+      ><button id="clearColors">清空方框颜色</button
+      ><button id="editFavorites">编辑常用应用</button
+      ><button id="refresh">刷新应用列表</button
+      ><button id="bridgeSettings">Bridge 设置</button
+      ><button id="oneui">打开 One UI</button
+      ><button id="closeSettings">完成</button>
+      <p id="count"></p>
+      <p>
+        点按打开应用，长按查看应用信息；横向拨动一行，松手后继续滑行；点按打开应用。设置保存在手机里。<br />常用应用可在这里选择并调整顺序，最多
+        15 个。
+      </p>
+    </dialog>
+    <dialog id="favorites">
+      <h2>常用应用</h2>
+      <p id="favoriteCount"></p>
+      <p>选中的应用排在 Search 下方，使用 ↑ ↓ 调整顺序。</p>
+      <div id="selectedFavorites"></div>
+      <input id="favoriteNeedle" type="search" placeholder="查找要加入的应用" />
+      <div id="availableFavorites"></div>
+      <button id="favoritesDone">完成</button>
+    </dialog>
+    <div id="toast" role="status" hidden></div>
+    <div id="previewNotice" hidden>浏览器预览 · 示例应用，不能启动手机应用</div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

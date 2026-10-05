@@ -1,0 +1,201 @@
+:root {
+  --bg: #f2eef0;
+  --ink: #38343d;
+  --edge: #938c95;
+  --size: 12px;
+  --row: 28px;
+  --top: 42px;
+  --bottom: 26px;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Arial, "Noto Sans", sans-serif;
+}
+body {
+  padding: var(--top) 0 var(--bottom);
+  overflow-x: hidden;
+}
+#wall {
+  display: block;
+  overflow: hidden;
+  min-height: calc(100dvh - var(--top) - var(--bottom));
+}
+.lane {
+  overflow: hidden;
+  width: 100%;
+  height: var(--row);
+  touch-action: pan-y;
+  border-top: 1px solid var(--edge);
+}
+.lane:last-child {
+  border-bottom: 1px solid var(--edge);
+}
+.tools {
+  display: flex;
+}
+.tools .tile:first-child {
+  flex: 1;
+}
+.tools .tile:last-child {
+  flex: 0 0 48px;
+  justify-content: center;
+}
+.track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.segment {
+  display: flex;
+  flex: none;
+}
+.segment .tile {
+  max-width: none;
+  flex: 1 0 auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.tile img {
+  pointer-events: none;
+}
+.tile {
+  flex: 1 0 auto;
+  max-width: 100%;
+  height: var(--row);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  padding: 0 5px;
+  margin: 0;
+  border: 0;
+  border-right: 1px solid var(--edge);
+  border-radius: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font:
+    var(--size) / 1.1 Arial,
+    sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+.tile img {
+  width: calc(var(--size) + 3px);
+  height: calc(var(--size) + 3px);
+  object-fit: contain;
+  flex: none;
+}
+.tile span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tile:active,
+.tile:focus-visible {
+  outline: 2px solid #7769b7;
+  outline-offset: -2px;
+}
+.tile[data-color] {
+  color: #302d37;
+}
+dialog {
+  width: min(90vw, 390px);
+  padding: 22px;
+  border: 1px solid var(--edge);
+  background: var(--bg);
+  color: var(--ink);
+}
+dialog::backdrop {
+  background: #0006;
+}
+dialog h2 {
+  font-size: 20px;
+  margin: 0 0 18px;
+}
+dialog p {
+  font-size: 13px;
+  line-height: 1.6;
+}
+dialog button,
+dialog input,
+dialog select {
+  font:
+    16px Arial,
+    sans-serif;
+  padding: 11px;
+  margin: 5px 0;
+  width: 100%;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--edge);
+}
+dialog label {
+  display: block;
+  margin: 12px 0;
+}
+dialog input[type="checkbox"] {
+  width: auto;
+}
+#error {
+  position: fixed;
+  top: 45px;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 20px;
+  font-size: 16px;
+  z-index: 2;
+}
+dialog {
+  max-height: 80dvh;
+  overflow-y: auto;
+}
+.favoriteRow {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: 8px 0;
+}
+.favoriteRow span {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.favoriteRow button {
+  width: auto;
+  margin: 0;
+  padding: 8px;
+}
+.favoriteRow button:disabled {
+  opacity: 0.4;
+}
+#availableFavorites button {
+  text-align: left;
+}
+#toast {
+  position: fixed;
+  bottom: 40px;
+  left: 10%;
+  right: 10%;
+  padding: 12px;
+  background: var(--ink);
+  color: var(--bg);
+  z-index: 10;
+  pointer-events: none;
+}
+#previewNotice {
+  position: fixed;
+  bottom: 3px;
+  left: 8px;
+  font-size: 10px;
+  background: var(--bg);
+  color: var(--ink);
+  pointer-events: none;
+}
