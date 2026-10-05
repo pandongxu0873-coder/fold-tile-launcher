@@ -6,6 +6,10 @@
 
 这是主题和兼容性补丁项目，需要 Bridge Launcher 承载。使用 Android 原有解锁和锁屏，不接管指纹或通知。
 
+[观看 25 秒竖屏演示：真实 App 图标、横向拨动与 Fold8 内外屏比例](https://github.com/pandongxu0873-coder/fold-tile-launcher/releases/download/v0.1.0/fold-tile-promo.mp4)
+
+视频使用主题实际响应触摸的浏览器录制，并展示平板尺寸排布；不等于全机型实测。真实 App 图标仅用于演示，不随主题分发。
+
 ![浏览器示例，全部为虚构应用](docs/preview.png)
 
 ## 功能
